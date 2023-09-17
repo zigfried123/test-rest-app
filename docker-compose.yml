@@ -1,0 +1,61 @@
+version: '3.0'
+
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./app:/symfony
+      - .:/app:cached
+      - cache:/app/var/cache
+      - vendor:/app/vendor
+
+    container_name: ${PROJECT_NAME}-nginx
+    restart: always
+    ports:
+      - "8082:81"
+
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+    volumes:
+      - ./app:/symfony
+      - .:/app:cached
+      - cache:/app/var/cache
+      - vendor:/app/vendor
+    restart: always
+    container_name: ${PROJECT_NAME}-php-fpm
+    depends_on:
+      - postgres
+
+  php-cli:
+    build:
+      context: ./docker/php-cli
+    volumes:
+      - ./app:/symfony
+      - .:/app:cached
+      - cache:/app/var/cache
+      - vendor:/app/vendor
+    command: sleep 10000
+    container_name: ${PROJECT_NAME}-php-cli
+
+
+  postgres:
+    image: 'postgres'
+    container_name: ${PROJECT_NAME}-postgres
+    ports:
+      - "5432"
+    restart: always
+    environment:
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+
+
+volumes:
+  cache:
+  vendor:
+  postgres:
+
+
+
+
+
