@@ -5,11 +5,11 @@ namespace App\Services\payment;
 use Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor;
 use Systemeio\TestForCandidates\PaymentProcessor\StripePaymentProcessor;
 
-class Payment
+class PaymentAdapter
 {
-    public static function pay(string $paymentProcessor, int $price)
+    public function pay($paymentProcessor, $price)
     {
-        match ($paymentProcessor) {
+        return match ($paymentProcessor) {
             'paypal' => (new PaypalPaymentProcessor)->pay($price),
             'stripe' => (new StripePaymentProcessor)->processPayment($price)
         };

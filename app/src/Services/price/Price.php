@@ -4,13 +4,7 @@ namespace App\Services\price;
 
 class Price
 {
-    /**
-     * @param string $taxNumber
-     * @param string $couponCode
-     * @param int $price
-     * @return int
-     */
-    public function count(string $taxNumber, string $couponCode, int $price): int
+    public function calculate(string $taxNumber, string $couponCode, int $price): int|float
     {
         $handler = FactoryCouponCodeCalc::getInstance($couponCode, $price);
         $total = $handler->calculate();

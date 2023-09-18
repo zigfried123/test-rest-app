@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Provider\CalculatePriceParams;
 use App\Provider\PurchaseParams;
-use App\Services\payment\Payment;
+use App\Services\payment\PaymentAdapter;
 use App\Services\price\Price;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,9 +57,7 @@ class ProductController extends AbstractController
 
         $price = $product->getPrice();
 
-        $total = (new Price)->count($taxNumber, $couponCode, $price);
-
-        echo $total;
+        $total = (new Price)->calculate($taxNumber, $couponCode, $price);
 
         return $response;
 
@@ -107,9 +105,13 @@ class ProductController extends AbstractController
 
         $price = $product->getPrice();
 
-        $total = (new Price)->count($taxNumber, $couponCode, $price);
+        $total = (new Price)->calculate($taxNumber, $couponCode, $price);
 
-        Payment::pay($paymentProcessor, $total);
+        try {
+            (new PaymentAdapter)->pay($paymentProcessor,$total);
+        } catch (\Exception $e) {
+            return $response->setContent($this->json(['error' => $e->getMessage()]));
+        }
 
         return $response;
 

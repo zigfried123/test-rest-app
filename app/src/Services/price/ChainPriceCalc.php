@@ -4,17 +4,12 @@ namespace App\Services\price;
 
 trait ChainPriceCalc
 {
-    protected $handler;
-    protected $total;
+    private $next;
+    protected int|float $total;
 
-    /**
-     * @param $handler
-     * @return void
-     */
-    public function setNext($handler)
+    public function setNext($next)
     {
-        $this->handler = $handler;
+        $this->next = $next;
     }
 
-    abstract public function calculate(): int;
 }

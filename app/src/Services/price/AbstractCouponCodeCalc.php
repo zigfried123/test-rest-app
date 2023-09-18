@@ -8,15 +8,18 @@ abstract class AbstractCouponCodeCalc
 
     protected string $couponCode;
 
-    /**
-     * @param string $couponCode
-     * @param int $total
-     */
-    public function __construct(string $couponCode, int $total)
+    public function __construct(string $couponCode, int|float $total)
     {
         $this->couponCode = $couponCode;
         $this->total = $total;
     }
 
-    abstract public function getCalculatedValue(): int;
+    public function calculate()
+    {
+        if($this->next) {
+            return $this->next->calculate();
+        }else{
+            return $this->total;
+        }
+    }
 }

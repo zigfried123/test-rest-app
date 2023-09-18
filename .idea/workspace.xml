@@ -14,18 +14,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee772e7a-f990-44d0-8d56-4cf59d816a24" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeception.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeception.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/test-rest-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/test-rest-app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/Services/payment/PaymentAdapter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Controller/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/Services/payment/Payment.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/Services/price/AbstractCouponCodeCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/AbstractCouponCodeCalc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/Services/price/CouponCodeCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/FactoryCouponCodeCalc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/Services/price/ChainPriceCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/ChainPriceCalc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/Services/price/CouponCodeFixCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/CouponCodeFixCalc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/Services/price/CouponCodePercentCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/CouponCodePercentCalc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/Services/price/FactoryCouponCodeCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/FactoryCouponCodeCalc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/Services/price/Price.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/Price.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/Services/price/TaxNumberCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/TaxNumberCalc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/Services/price/TraitPriceCalc.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Services/price/ChainPriceCalc.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,30 +169,31 @@
       <path value="$PROJECT_DIR$/app/vendor/masterminds/html5" />
     </include_path>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2VVk6c5jrj6zRdOjR6z0VeLx8Lx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/home/PhpstormProjects/test-rest-app",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/home/PhpstormProjects/test-rest-app&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\OSPanel\domains\test-rest-app\app\src\Controller" />
@@ -211,7 +212,8 @@
       <option name="presentableId" value="Default" />
       <updated>1694928460824</updated>
       <workItem from="1694928462066" duration="12600000" />
-      <workItem from="1695025390154" duration="16283000" />
+      <workItem from="1695025390154" duration="25090000" />
+      <workItem from="1695061679824" duration="4413000" />
     </task>
     <servers />
   </component>
