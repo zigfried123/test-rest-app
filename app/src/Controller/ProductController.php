@@ -2,13 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
+use App\Provider\CalculatePriceParams;
 use App\Provider\PurchaseParams;
+use App\Services\payment\Payment;
+use App\Services\price\CouponCodeCalc;
+use App\Services\price\TaxNumberCalc;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\Provider\CalculatePriceParams;
 
 class ProductController extends AbstractController
 {
@@ -18,7 +23,7 @@ class ProductController extends AbstractController
      * @return Response
      */
     #[Route('/calculate-price', methods: ['POST'])]
-    public function calculatePrice(Request $request, ValidatorInterface $validator)
+    public function calculatePrice(Request $request, ValidatorInterface $validator, EntityManagerInterface $entityManager)
     {
         $response = new Response;
 
@@ -48,6 +53,16 @@ class ProductController extends AbstractController
 
         }
 
+        $repository = $entityManager->getRepository(Product::class);
+        $product = $repository->find($product);
+
+        $price = $product->getPrice();
+
+        $handler = CouponCodeCalc::getInstance($couponCode, $price);
+        $total = $handler->calculate();
+        $handler->setNext(new TaxNumberCalc($taxNumber, $total));
+        $total = $handler->calculate();
+
         return $response;
 
     }
@@ -58,11 +73,18 @@ class ProductController extends AbstractController
      * @return Response
      */
     #[Route('/purchase', methods: ['POST'])]
-    public function purchase(Request $request, ValidatorInterface $validator)
+    public function purchase(Request $request, ValidatorInterface $validator, EntityManagerInterface $entityManager)
     {
         $response = new Response;
 
-        $params = new PurchaseParams($request->toArray());
+        $request = $request->toArray();
+
+        $params = new PurchaseParams($request);
+
+        $product = $request['product'];
+        $taxNumber = $request['taxNumber'];
+        $couponCode = $request['couponCode'];
+        $paymentProcessor = $request['paymentProcessor'];
 
         $errors = $validator->validate($params);
 
@@ -81,6 +103,18 @@ class ProductController extends AbstractController
             return $response;
 
         }
+
+        $repository = $entityManager->getRepository(Product::class);
+        $product = $repository->find($product);
+
+        $price = $product->getPrice();
+
+        $handler = CouponCodeCalc::getInstance($couponCode, $price);
+        $total = $handler->calculate();
+        $handler->setNext(new TaxNumberCalc($taxNumber, $total));
+        $total = $handler->calculate();
+
+        Payment::pay($paymentProcessor, $total);
 
         return $response;
 
