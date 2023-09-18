@@ -6,8 +6,7 @@ use App\Entity\Product;
 use App\Provider\CalculatePriceParams;
 use App\Provider\PurchaseParams;
 use App\Services\payment\Payment;
-use App\Services\price\CouponCodeCalc;
-use App\Services\price\TaxNumberCalc;
+use App\Services\price\Price;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,10 +57,9 @@ class ProductController extends AbstractController
 
         $price = $product->getPrice();
 
-        $handler = CouponCodeCalc::getInstance($couponCode, $price);
-        $total = $handler->calculate();
-        $handler->setNext(new TaxNumberCalc($taxNumber, $total));
-        $total = $handler->calculate();
+        $total = (new Price)->count($taxNumber, $couponCode, $price);
+
+        echo $total;
 
         return $response;
 
@@ -109,10 +107,7 @@ class ProductController extends AbstractController
 
         $price = $product->getPrice();
 
-        $handler = CouponCodeCalc::getInstance($couponCode, $price);
-        $total = $handler->calculate();
-        $handler->setNext(new TaxNumberCalc($taxNumber, $total));
-        $total = $handler->calculate();
+        $total = (new Price)->count($taxNumber, $couponCode, $price);
 
         Payment::pay($paymentProcessor, $total);
 

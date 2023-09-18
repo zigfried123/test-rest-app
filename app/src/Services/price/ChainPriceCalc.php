@@ -2,7 +2,7 @@
 
 namespace App\Services\price;
 
-trait TraitPriceCalc
+trait ChainPriceCalc
 {
     protected $handler;
     protected $total;
@@ -16,5 +16,5 @@ trait TraitPriceCalc
         $this->handler = $handler;
     }
 
-   abstract function calculate();
+    abstract public function calculate(): int;
 }

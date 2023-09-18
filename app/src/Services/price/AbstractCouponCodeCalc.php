@@ -4,9 +4,9 @@ namespace App\Services\price;
 
 abstract class AbstractCouponCodeCalc
 {
-    use TraitPriceCalc;
+    use ChainPriceCalc;
 
-    private string $couponCode;
+    protected string $couponCode;
 
     /**
      * @param string $couponCode
@@ -17,4 +17,6 @@ abstract class AbstractCouponCodeCalc
         $this->couponCode = $couponCode;
         $this->total = $total;
     }
+
+    abstract public function getCalculatedValue(): int;
 }

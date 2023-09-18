@@ -5,17 +5,20 @@ namespace App\Services\price;
 class CouponCodePercentCalc extends AbstractCouponCodeCalc
 {
 
-    public function prepareDiscountAmount()
+    public function getCalculatedValue(): int
     {
-
+        preg_match('/\d+/', $this->couponCode, $matches);
+        $percent = +$matches[0];
+        return $this->total * $percent / 100;
     }
 
     /**
      * @return int
      */
-    public function calculate()
+    public function calculate(): int
     {
-        $this->total -= 25;
+        $calculatedValue = $this->getCalculatedValue();
+        $this->total -= $calculatedValue;
         return $this->total;
     }
 }

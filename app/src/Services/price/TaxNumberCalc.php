@@ -4,7 +4,7 @@ namespace App\Services\price;
 
 class TaxNumberCalc
 {
-    use TraitPriceCalc;
+    use ChainPriceCalc;
 
     private string $taxNumber;
 
@@ -14,12 +14,25 @@ class TaxNumberCalc
         $this->total = $total;
     }
 
-    /**
-     * @return int
-     */
-    public function calculate()
+    public function getCalculatedValue()
     {
-        $this->total -= 25;
+        $taxPercent = null;
+        if (strpos($this->taxNumber, 'DE') !== false) {
+            $taxPercent = 19;
+        } elseif (strpos($this->taxNumber, 'IT') !== false) {
+            $taxPercent = 22;
+        } elseif (strpos($this->taxNumber, 'FR') !== false) {
+            $taxPercent = 20;
+        } elseif (strpos($this->taxNumber, 'GR') !== false) {
+            $taxPercent = 24;
+        }
+        return $this->total * $taxPercent / 100;
+    }
+
+    public function calculate(): int
+    {
+        $calculatedValue = $this->getCalculatedValue();
+        $this->total += $calculatedValue;
         return $this->total;
     }
 }
