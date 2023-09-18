@@ -22,7 +22,13 @@ class ProductController extends AbstractController
     {
         $response = new Response;
 
-        $params = new CalculatePriceParams($request->toArray());
+        $request = $request->toArray();
+
+        $params = new CalculatePriceParams($request);
+
+        $product = $request['product'];
+        $taxNumber = $request['taxNumber'];
+        $couponCode = $request['couponCode'];
 
         $errors = $validator->validate($params);
 
