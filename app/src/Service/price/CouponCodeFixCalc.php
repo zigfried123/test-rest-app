@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\price;
+namespace App\Service\price;
 
 class CouponCodeFixCalc extends AbstractCouponCodeCalc
 {

@@ -41,7 +41,11 @@ services:
     restart: always
     environment:
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+    volumes:
+      - pgsql:/var/lib/pgsql
 
+volumes:
+  pgsql:
 
 
 

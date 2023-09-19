@@ -2,7 +2,7 @@
 
 namespace App\Tests;
 
-use App\Services\payment\PaymentAdapter;
+use App\Service\payment\PaymentAdapter;
 use PHPUnit\Framework\TestCase;
 
 class PaymentTest extends TestCase

@@ -1,6 +1,7 @@
 {
     "require": {
         "symfony/orm-pack": "^2.4",
-        "sensio/framework-extra-bundle": "^6.2"
+        "sensio/framework-extra-bundle": "^6.2",
+        "symfony/templating": "^6.3"
     }
 }

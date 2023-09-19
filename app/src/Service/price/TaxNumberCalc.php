@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services\price;
+namespace App\Service\price;
 
-class TaxNumberCalc
+class TaxNumberCalc implements TaxNumberCalcInterface
 {
     use ChainPriceCalc;
+
     const TaxPercentDE = 19;
     const TaxPercentIT = 22;
     const TaxPercentFR = 20;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\payment;
+namespace App\Service\payment;
 
 use Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor;
 use Systemeio\TestForCandidates\PaymentProcessor\StripePaymentProcessor;

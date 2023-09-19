@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\price;
+namespace App\Service\price;
 
 class CouponCodePercentCalc extends AbstractCouponCodeCalc
 {
@@ -11,7 +11,6 @@ class CouponCodePercentCalc extends AbstractCouponCodeCalc
         $percent = +$matches[0];
         return $this->total * $percent / 100;
     }
-
 
     public function calculate(): int|float
     {

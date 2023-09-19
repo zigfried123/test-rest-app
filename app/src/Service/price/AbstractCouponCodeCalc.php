@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\price;
+namespace App\Service\price;
 
 abstract class AbstractCouponCodeCalc
 {
@@ -14,11 +14,11 @@ abstract class AbstractCouponCodeCalc
         $this->total = $total;
     }
 
-    public function calculate()
+    public function calculate(): int|float
     {
-        if($this->next) {
+        if ($this->next) {
             return $this->next->calculate();
-        }else{
+        } else {
             return $this->total;
         }
     }

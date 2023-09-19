@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Exception\CouponException;
 use App\Provider\CalculatePriceParams;
 use App\Provider\PurchaseParams;
-use App\Services\payment\PaymentAdapter;
-use App\Services\price\Price;
+use App\Service\payment\PaymentAdapter;
+use App\Service\price\Price;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,9 +58,13 @@ class ProductController extends AbstractController
 
         $price = $product->getPrice();
 
-        $total = (new Price)->calculate($taxNumber, $couponCode, $price);
+        try {
+            $total = (new Price)->calculate($taxNumber, $couponCode, $price);
+        } catch (CouponException $e) {
+            return $response->setContent($this->json(['error' => $e->getMessage()]));
+        }
 
-        return $response;
+        return $response->setContent($this->json(['final price' => $total]));
 
     }
 
@@ -105,10 +110,14 @@ class ProductController extends AbstractController
 
         $price = $product->getPrice();
 
-        $total = (new Price)->calculate($taxNumber, $couponCode, $price);
+        try {
+            $total = (new Price)->calculate($taxNumber, $couponCode, $price);
+        } catch (CouponException $e) {
+            return $response->setContent($this->json(['error' => $e->getMessage()]));
+        }
 
         try {
-            (new PaymentAdapter)->pay($paymentProcessor,$total);
+            (new PaymentAdapter)->pay($paymentProcessor, $total);
         } catch (\Exception $e) {
             return $response->setContent($this->json(['error' => $e->getMessage()]));
         }

@@ -18,10 +18,11 @@ class CalculatePriceParams
     public $product;
 
     #[Assert\NotBlank]
-    #[Assert\Regex(pattern: '/^DE|IT|GR|FR[A-Z]{2}[A-Z0-9]+$/',message: 'Your taxNumber is wrong')]
+    #[Assert\Regex(pattern: '/^DE\d+|FR[A-Z]{2}\d+$/',message: 'Your taxNumber is wrong')]
     public $taxNumber;
 
     #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^D|P\d+$/',message: 'Your couponCode is wrong')]
     public $couponCode;
 
 }
