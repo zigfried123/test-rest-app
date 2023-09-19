@@ -18,7 +18,7 @@ class PurchaseParams
     public $product;
 
     #[Assert\NotBlank]
-    #[Assert\Regex(pattern: '/^DE\d+|FR[A-Z]{2}\d+$/',message: 'Your taxNumber is wrong')]
+    #[Assert\Regex(pattern: '/^GR\d+|IT\d+|DE\d+|FR[A-Z]{2}\d+$/',message: 'Your taxNumber is wrong')]
     public $taxNumber;
 
     #[Assert\NotBlank]

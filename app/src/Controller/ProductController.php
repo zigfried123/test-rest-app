@@ -39,7 +39,7 @@ class ProductController extends AbstractController
 
         if (!$request || count($errors) > 0) {
 
-            $response->setStatusCode(400);
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
 
             $errorsList = [];
 
@@ -91,7 +91,7 @@ class ProductController extends AbstractController
 
         if (!$request || count($errors) > 0) {
 
-            $response->setStatusCode(400);
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
 
             $errorsList = [];
 
