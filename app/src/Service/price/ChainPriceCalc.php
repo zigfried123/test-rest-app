@@ -12,4 +12,13 @@ trait ChainPriceCalc
         $this->next = $next;
     }
 
+    public function calculateParent(): int|float
+    {
+        if ($this->next) {
+            return $this->next->calculate();
+        } else {
+            return $this->total;
+        }
+    }
+
 }

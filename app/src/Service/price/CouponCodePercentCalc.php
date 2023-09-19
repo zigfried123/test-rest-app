@@ -16,6 +16,6 @@ class CouponCodePercentCalc extends AbstractCouponCodeCalc
     {
         $calculatedValue = $this->getCalculatedValue();
         $this->total -= $calculatedValue;
-        return parent::calculate();
+        return $this->calculateParent();
     }
 }

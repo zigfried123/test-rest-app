@@ -5,7 +5,7 @@ namespace App\Service\price;
 class CouponCodeFixCalc extends AbstractCouponCodeCalc
 {
 
-   private function getCalculatedValue(): int|float
+    private function getCalculatedValue(): int|float
     {
         preg_match('/\d+/', $this->couponCode, $matches);
         return +$matches[0];
@@ -15,6 +15,6 @@ class CouponCodeFixCalc extends AbstractCouponCodeCalc
     {
         $calculatedValue = $this->getCalculatedValue();
         $this->total -= $calculatedValue;
-        return parent::calculate();
+        return $this->calculateParent();
     }
 }

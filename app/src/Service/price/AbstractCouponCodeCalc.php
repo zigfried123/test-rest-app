@@ -14,12 +14,4 @@ abstract class AbstractCouponCodeCalc
         $this->total = $total;
     }
 
-    public function calculate(): int|float
-    {
-        if ($this->next) {
-            return $this->next->calculate();
-        } else {
-            return $this->total;
-        }
-    }
 }

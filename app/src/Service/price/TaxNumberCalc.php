@@ -38,6 +38,6 @@ class TaxNumberCalc implements TaxNumberCalcInterface
     {
         $calculatedValue = $this->getCalculatedValue();
         $this->total += $calculatedValue;
-        return $this->total;
+        return $this->calculateParent();
     }
 }
