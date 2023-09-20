@@ -4,6 +4,10 @@ namespace App\Service\price;
 
 class Price
 {
+    const UNIT_EURO = 1;
+    const UNIT_CENT = 2;
+    const UNIT_USD = 3;
+
     /**
      * @param string $taxNumber
      * @param string $couponCode
