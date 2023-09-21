@@ -29,15 +29,15 @@ class PaymentController extends AbstractController
 
         $request = $request->toArray();
 
-        $params = new CalculatePriceParams($request);
+        $product = isset($request['product']) ? $request['product'] : null;
+        $taxNumber = isset($request['taxNumber']) ? $request['taxNumber'] : null;
+        $couponCode = isset($request['couponCode']) ? $request['couponCode'] : null;
 
-        $product = $request['product'];
-        $taxNumber = $request['taxNumber'];
-        $couponCode = $request['couponCode'];
+        $params = new CalculatePriceParams(compact('product','taxNumber','couponCode'));
 
         $errors = $validator->validate($params);
 
-        if (!$request || count($errors) > 0) {
+        if (count($errors) > 0) {
 
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
 
@@ -61,6 +61,7 @@ class PaymentController extends AbstractController
         try {
             $total = (new Price)->calculate($taxNumber, $couponCode, $price);
         } catch (CouponException $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
             return $response->setContent($this->json(['error' => $e->getMessage()]));
         }
 
@@ -80,16 +81,16 @@ class PaymentController extends AbstractController
 
         $request = $request->toArray();
 
-        $params = new PurchaseParams($request);
+        $product = isset($request['product']) ? $request['product'] : null;
+        $taxNumber = isset($request['taxNumber']) ? $request['taxNumber'] : null;
+        $couponCode = isset($request['couponCode']) ? $request['couponCode'] : null;
+        $paymentProcessor =  isset($request['paymentProcessor']) ? $request['paymentProcessor'] : null;
 
-        $product = $request['product'];
-        $taxNumber = $request['taxNumber'];
-        $couponCode = $request['couponCode'];
-        $paymentProcessor = $request['paymentProcessor'];
+        $params = new PurchaseParams(compact('product','taxNumber','couponCode','paymentProcessor'));
 
         $errors = $validator->validate($params);
 
-        if (!$request || count($errors) > 0) {
+        if (count($errors) > 0) {
 
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
 
@@ -113,12 +114,14 @@ class PaymentController extends AbstractController
         try {
             $total = (new Price)->calculate($taxNumber, $couponCode, $price);
         } catch (CouponException $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
             return $response->setContent($this->json(['error' => $e->getMessage()]));
         }
 
         try {
             (new PaymentAdapter)->pay($paymentProcessor, $total);
         } catch (\Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
             return $response->setContent($this->json(['error' => $e->getMessage()]));
         }
 
