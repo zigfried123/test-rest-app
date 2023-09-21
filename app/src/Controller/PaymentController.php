@@ -33,7 +33,7 @@ class PaymentController extends AbstractController
         $taxNumber = isset($request['taxNumber']) ? $request['taxNumber'] : null;
         $couponCode = isset($request['couponCode']) ? $request['couponCode'] : null;
 
-        $params = new CalculatePriceParams(compact('product','taxNumber','couponCode'));
+        $params = new CalculatePriceParams(compact('product', 'taxNumber', 'couponCode'));
 
         $errors = $validator->validate($params);
 
@@ -84,9 +84,9 @@ class PaymentController extends AbstractController
         $product = isset($request['product']) ? $request['product'] : null;
         $taxNumber = isset($request['taxNumber']) ? $request['taxNumber'] : null;
         $couponCode = isset($request['couponCode']) ? $request['couponCode'] : null;
-        $paymentProcessor =  isset($request['paymentProcessor']) ? $request['paymentProcessor'] : null;
+        $paymentProcessor = isset($request['paymentProcessor']) ? $request['paymentProcessor'] : null;
 
-        $params = new PurchaseParams(compact('product','taxNumber','couponCode','paymentProcessor'));
+        $params = new PurchaseParams(compact('product', 'taxNumber', 'couponCode', 'paymentProcessor'));
 
         $errors = $validator->validate($params);
 
